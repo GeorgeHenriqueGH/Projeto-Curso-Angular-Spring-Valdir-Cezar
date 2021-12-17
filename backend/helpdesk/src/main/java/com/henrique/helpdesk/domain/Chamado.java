@@ -1,7 +1,16 @@
 package com.henrique.helpdesk.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.henrique.helpdesk.domain.enums.Prioridade;
 import com.henrique.helpdesk.domain.enums.Status;
 
@@ -16,10 +25,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Chamado {
+@Entity
+@SuppressWarnings("serial")
+public class Chamado implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataAbertura = LocalDate.now();
 	private LocalDate dataFechamento;
 
@@ -29,6 +43,11 @@ public class Chamado {
 	private String titulo;
 	private String observacoes;
  	
+	@ManyToOne
+	@JoinColumn(name = "tecnico_id")
 	private Tecnico tecnico;
+
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 }
