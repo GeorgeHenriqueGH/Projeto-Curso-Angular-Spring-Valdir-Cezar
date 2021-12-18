@@ -14,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.henrique.helpdesk.domain.enums.Prioridade;
 import com.henrique.helpdesk.domain.enums.Status;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +22,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 @Entity
 @SuppressWarnings("serial")
@@ -32,7 +30,7 @@ public class Chamado implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataAbertura = LocalDate.now();
 	private LocalDate dataFechamento;
@@ -50,4 +48,17 @@ public class Chamado implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
+	
+
+	public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico,
+			Cliente cliente) {
+		super();
+		this.id = id;
+		this.prioridade = prioridade;
+		this.status = status;
+		this.titulo = titulo;
+		this.observacoes = observacoes;
+		this.tecnico = tecnico;
+		this.cliente = cliente;
+	}
 }
