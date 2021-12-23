@@ -33,7 +33,7 @@ public class DBService {
 		
 		Cliente cli1 = new Cliente(null, "Linus Torvalds", "990.504.720-44", "linustorvalds@hotmail.com", "linux");
 		Chamado ch1 = new Chamado(null, Prioridade.ALTA, Status.ANDAMENTO, "Chamado 01", "Primeiro Chamado", tec1, cli1);
-		
+			
 		tecnicoRepository.saveAll(Arrays.asList(tec1));
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		chamadoRepository.saveAll(Arrays.asList(ch1));	
