@@ -18,6 +18,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.henrique.helpdesk.security.JWTAuthenticationFilter;
+import com.henrique.helpdesk.security.JWTAuthorizationFilter;
 import com.henrique.helpdesk.security.JWTUtil;
 
 @EnableWebSecurity
@@ -44,6 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 		
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		
 		http.authorizeHttpRequests()
 			.antMatchers(PUBLIC_MATCHERS).permitAll()
